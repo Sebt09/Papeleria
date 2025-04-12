@@ -1,5 +1,19 @@
 # 📚 Papelería API - Proyecto Spring Boot
 
+
+## 📑 Tabla de Contenido
+
+- [📌 Descripción](#📌-descripción)
+- [🧱 Arquitectura del Proyecto](#🧱-arquitectura-del-proyecto)
+- [🧠 ¿Que son las consultas nativas y como funcionan?](#🧠-¿que-son-las-consultas-nativas-y-como-funcionan)
+- [🔍 Consultas nativas en el repositorio Venta](#consultas-nativas-en-el-repositorio-venta)
+- [🔍 Consulta nativa en el repositorio Producto](#consulta-nativa-en-el-repositorio-producto)
+- [🔍 Consulta nativa en el repositorio DetalleVenta](#consulta-nativa-en-el-repositorio-detalleventa)
+- [📮 Documentacion de Endpoints Entidad Venta](#documentacion-de-endpoints---entidad-venta)
+- [🗺️ Diagrama de BD en SUPABASE](#diagrama-de-bd-en-supabase)
+
+
+
 ## 📌 Descripción
 
 Este proyecto consiste en una API RESTful para la gestión de productos, proveedores y detalles de venta en una papelería, implementado con Spring Boot, JPA y consultas nativas.
@@ -8,7 +22,7 @@ Este proyecto consiste en una API RESTful para la gestión de productos, proveed
 
 Este proyecto sigue la arquitectura Model - Repository - Service - Controller (MRSC), que permite una separación clara de responsabilidades:
 
-Model: Representa las entidades o clases que reflejan las tablas de la base de datos (Producto, Cliente, Factura).
+Model: Representa las entidades o clases que reflejan las tablas de la base de datos (Producto`, `Cliente`, `Empleado`, `Venta`, `DetalleVenta`, `Proveedor`).
 
 Repository: Interfaces que extienden JpaRepository o usan consultas nativas para interactuar directamente con la base de datos.
 
@@ -44,7 +58,7 @@ nativeQuery = true: Especifica que se trata de una consulta nativa.
 
 Para este ejercicio se utilizaron 4 consultas nativas
 
-#### Consultas nativas en el repositorio **Venta**
+## Consultas nativas en el repositorio **Venta**
 
 ~~~
     @Query(value = "SELECT * FROM Venta WHERE id_empleado = :IdEmpleado", nativeQuery = true)
@@ -112,7 +126,7 @@ Esta consulta permite filtrar las ventas realizadas por un empleado a un cliente
 
 📍 Ruta en Swagger o Postman:
 
-"apiventa//listar/empleado/{idEmpleado}/cliente/{idCliente}"
+"apiventa/listar/empleado/{idEmpleado}/cliente/{idCliente}"
 
 ![Controlador de Ventas](images/venta_controller.jpg)
 
@@ -139,7 +153,7 @@ Esta consulta permite filtrar las ventas realizadas por un empleado a un cliente
 ]
 ~~~
 
-#### Consulta nativa en el repositorio **Producto**
+## Consulta nativa en el repositorio **Producto**
 
 ~~~
 @Query(value = "SELECT * FROM Producto WHERE id_proveedor = :IdProveedor", nativeQuery = true)
@@ -204,7 +218,7 @@ apiproducto/producto/proveedor/{id}
 ]
 ~~~
 
-#### Consulta nativa en el repositorio **DetalleVenta**
+## Consulta nativa en el repositorio **DetalleVenta**
 
 ~~~
     @Query(value = "SELECT dv.* FROM Detalle_Venta dv INNER JOIN Venta v ON dv.id_venta = v.id WHERE v.id_empleado = :idEmpleado AND v.id_cliente = :idCliente", nativeQuery = true)
@@ -262,11 +276,14 @@ apidetalleventa/listar/empleado/{idEmpleado}/cliente/{idCliente}"
 ]
 ~~~
 
-## 📮 Endpoints por Entidad (Documentación para pruebas en Swagger/Postman).
+
+
+## Documentacion de Endpoints - Entidad Venta
+
 
 A continuación se describen los endpoints disponibles para interactuar con el sistema. Todos pueden ser probados desde Swagger o Postman según prefieras.
 
-#### 1. Crear una venta
+### 1. Crear una venta
 
 Método: POST
 
@@ -304,7 +321,7 @@ Respuesta esperada
 }
 ~~~
 
-#### 2. Listar todas las ventas
+### 2. Listar todas las ventas
 
 Método: GET
 
@@ -416,7 +433,7 @@ Ruta: /apiventa/listar
   },.......
 ~~~
 
-#### 3. Eliminar una venta por ID
+### 3. Eliminar una venta por ID
 
 Método: DELETE
 
@@ -424,7 +441,7 @@ Ruta: /apiventa/eliminar/{id}
 
 ![Borrar Venta por Id](images/borrarventa.jpg)
 
-#### 4. Actualizar una venta
+### 4. Actualizar una venta
 Método: PUT
 
 Ruta: /apiventa/actualizar
